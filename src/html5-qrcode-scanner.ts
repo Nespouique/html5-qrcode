@@ -270,9 +270,9 @@ export class Html5QrcodeScanner {
 
         const container = document.getElementById(this.elementId);
         if (!container) {
-            throw `HTML Element with id=${this.elementId} not found`;
-        }
+            throw `HTML Element with id=${this.elementId} not found`;        }
         container.innerHTML = "";
+        this.injectCustomScannerStyles(); // Injecter les styles personnalisés
         this.createBasicLayout(container!);
         this.html5Qrcode = new Html5Qrcode(
             this.getScanRegionId(),
@@ -467,20 +467,19 @@ export class Html5QrcodeScanner {
             supportedScanTypes:
                 Html5QrcodeConstants.DEFAULT_SUPPORTED_SCAN_TYPE
         };
-    }
-
-    private createBasicLayout(parent: HTMLElement) {
+    }    private createBasicLayout(parent: HTMLElement) {
         parent.style.position = "relative";
         parent.style.padding = "0px";
-        parent.style.border = "1px solid silver";
-        this.createHeader(parent);
-
-        const qrCodeScanRegion = document.createElement("div");
+        parent.style.border = "1px solid hsl(var(--border))";
+        parent.style.borderRadius = "8px";
+        parent.style.background = "hsl(var(--background))";
+        this.createHeader(parent);        const qrCodeScanRegion = document.createElement("div");
         const scanRegionId = this.getScanRegionId();
         qrCodeScanRegion.id = scanRegionId;
         qrCodeScanRegion.style.width = "100%";
         qrCodeScanRegion.style.minHeight = "100px";
         qrCodeScanRegion.style.textAlign = "center";
+        qrCodeScanRegion.style.color = "hsl(var(--foreground))";
         parent.appendChild(qrCodeScanRegion);
         if (ScanTypeSelector.isCameraScanType(this.currentScanType)) {
             this.insertCameraScanImageToScanRegion();
@@ -519,13 +518,13 @@ export class Html5QrcodeScanner {
         libraryInfo.renderInto(header);
 
         const headerMessageContainer = document.createElement("div");
-        headerMessageContainer.id = this.getHeaderMessageContainerId();
-        headerMessageContainer.style.display = "none";
+        headerMessageContainer.id = this.getHeaderMessageContainerId();        headerMessageContainer.style.display = "none";
         headerMessageContainer.style.textAlign = "center";
         headerMessageContainer.style.fontSize = "14px";
         headerMessageContainer.style.padding = "2px 10px";
         headerMessageContainer.style.margin = "4px";
-        headerMessageContainer.style.borderTop = "1px solid #f6f6f6";
+        headerMessageContainer.style.borderTop = "1px solid hsl(var(--border))";
+        headerMessageContainer.style.color = "hsl(var(--foreground))";
         header.appendChild(headerMessageContainer);
     }
 
@@ -808,15 +807,15 @@ export class Html5QrcodeScanner {
             if (shouldShow) {
                 cameraActionStartButton.style.display = "inline-block";
             }
-        };
-
-        cameraActionStartButton.addEventListener("click", (_) => {
-            // Update the UI.
+        };        cameraActionStartButton.addEventListener("click", (_) => {
+            // Update the UI with custom styles.
             cameraActionStartButton.innerText
                 = Html5QrcodeScannerStrings.scanButtonScanningStarting();
             cameraSelectUi.disable();
             cameraActionStartButton.disabled = true;
-            cameraActionStartButton.style.opacity = "0.5";
+            cameraActionStartButton.style.opacity = "0.6";
+            cameraActionStartButton.style.background = "hsl(var(--primary)/0.6)";
+            cameraActionStartButton.style.color = "hsl(var(--primary-foreground))";
             // Swap link is available only when both scan types are required.
             if (this.scanTypeSelector.hasMoreThanOneScanType()) {
                 $this.showHideScanTypeSwapLink(false);
@@ -1091,6 +1090,92 @@ export class Html5QrcodeScanner {
         qrCodeScanRegion.innerHTML = "";
     }
 
+    private injectCustomScannerStyles() {
+        // Injecter les styles personnalisés pour la librairie html5-qrcode
+        const customStyles = `
+            <style id="html5-qrcode-custom-styles">
+                /* Styles pour les boutons */
+                .html5-qrcode-element button {
+                    background: hsl(var(--primary)) !important;
+                    color: hsl(var(--primary-foreground)) !important;
+                    border: 1px solid hsl(var(--border)) !important;
+                    border-radius: 6px !important;
+                    padding: 8px 16px !important;
+                    font-size: 14px !important;
+                    font-weight: 500 !important;
+                    cursor: pointer !important;
+                    transition: all 0.2s !important;
+                    margin: 4px !important;
+                }
+
+                .html5-qrcode-element button:hover {
+                    background: hsl(var(--primary)/0.9) !important;
+                }
+
+                .html5-qrcode-element button:disabled {
+                    background: hsl(var(--primary)/0.6) !important;
+                    opacity: 0.6 !important;
+                    cursor: not-allowed !important;
+                }
+
+                /* Style pour le select de caméra */
+                .html5-qrcode-element select {
+                    background: hsl(var(--background)) !important;
+                    border: 1px solid hsl(var(--border)) !important;
+                    border-radius: 6px !important;
+                    padding: 8px 12px !important;
+                    font-size: 14px !important;
+                    color: hsl(var(--foreground)) !important;
+                    margin: 8px !important;
+                    cursor: pointer !important;
+                }
+
+                /* Styles pour les labels et texte */
+                .html5-qrcode-element span {
+                    color: hsl(var(--foreground)) !important;
+                    font-size: 14px !important;
+                    margin: 4px 0 !important;
+                }
+
+                /* Container principal */
+                .html5-qrcode-element > div {
+                    text-align: center !important;
+                    margin: 8px 0 !important;
+                    display: block !important;
+                    visibility: visible !important;
+                }
+
+                /* Zone de scan vidéo */
+                .html5-qrcode-element video {
+                    border-radius: 8px !important;
+                    max-width: 100% !important;
+                }
+
+                /* Canvas overlay */
+                .html5-qrcode-element canvas {
+                    border-radius: 8px !important;
+                }
+
+                /* Masquer les éléments indésirables */
+                .html5-qrcode-element div[style*="position: absolute"][style*="top"][style*="right"] {
+                    display: none !important;
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                }
+
+                .html5-qrcode-element img[style*="position: absolute"] {
+                    display: none !important;
+                }
+            </style>
+        `;
+
+        // Injecter les styles dans le head si pas déjà fait
+        if (!document.getElementById('html5-qrcode-custom-styles')) {
+            const styleElement = document.createElement('div');
+            styleElement.innerHTML = customStyles;
+            document.head.appendChild(styleElement);
+        }
+    }
     //#region state getters
     private getDashboardSectionId(): string {
         return `${this.elementId}__dashboard_section`;

@@ -80,26 +80,24 @@ export class Html5QrcodeScannerStrings {
 
     public static codeScannerTitle(): string {
         return "Code Scanner";
-    }
-
-    public static cameraPermissionTitle(): string {
-        return "Request Camera Permissions";
+    }    public static cameraPermissionTitle(): string {
+        return "📷 Autoriser la caméra";
     }
 
     public static cameraPermissionRequesting(): string {
-        return "Requesting camera permissions...";
+        return "Demande d'autorisation de la caméra...";
     }
 
     public static noCameraFound(): string {
-        return "No camera found";
+        return "Aucune caméra trouvée";
     }
 
     public static scanButtonStopScanningText(): string {
-        return "Stop Scanning";
+        return "⏹️ Arrêter le scan";
     }
 
     public static scanButtonStartScanningText(): string {
-        return "Start Scanning";
+        return "🚀 Démarrer le scan";
     }
 
     public static torchOnButton(): string {
@@ -116,10 +114,8 @@ export class Html5QrcodeScannerStrings {
 
     public static torchOffFailedMessage(): string {
         return "Failed to turn off torch";
-    }
-
-    public static scanButtonScanningStarting(): string {
-        return "Launching Camera...";
+    }    public static scanButtonScanningStarting(): string {
+        return "Lancement de la caméra...";
     }
 
     /**
@@ -128,7 +124,7 @@ export class Html5QrcodeScannerStrings {
      * This will be used to switch to file based scanning.
      */
     public static textIfCameraScanSelected(): string {
-        return "Scan an Image File";
+        return "Scanner un fichier";
     }
 
     /**
@@ -137,53 +133,49 @@ export class Html5QrcodeScannerStrings {
      * This will be used to switch to camera based scanning.
      */
     public static textIfFileScanSelected(): string {
-        return "Scan using camera directly";
+        return "Scanner avec la caméra";
     }
 
     public static selectCamera(): string {
-        return "Select Camera";
+        return "📷 Sélectionner une caméra";
     }
 
     public static fileSelectionChooseImage(): string {
-        return "Choose Image";
-    }
-
-    public static fileSelectionChooseAnother(): string {
-        return "Choose Another";
+        return "🖼️ Choisir une image";
+    }    public static fileSelectionChooseAnother(): string {
+        return "Choisir une autre image";
     }
 
     public static fileSelectionNoImageSelected(): string {
-        return "No image choosen";
+        return "Aucune image sélectionnée";
     }
 
     /** Prefix to be given to anonymous cameras. */
     public static anonymousCameraPrefix(): string {
-        return "Anonymous Camera";
+        return "Caméra";
     }
 
     public static dragAndDropMessage(): string {
-        return "Or drop an image to scan";
+        return "Ou déposer une image pour scanner";
     }
 
     public static dragAndDropMessageOnlyImages(): string {
-        return "Or drop an image to scan (other files not supported)";
+        return "Ou déposer une image pour scanner (autres fichiers non supportés)";
     }
 
     /** Value for zoom. */
     public static zoom(): string {
         return "zoom";
-    }
-
-    public static loadingImage(): string {
-        return "Loading image...";
+    }    public static loadingImage(): string {
+        return "Chargement de l'image...";
     }
 
     public static cameraScanAltText(): string {
-        return "Camera based scan";
+        return "Scan basé sur la caméra";
     }
 
     public static fileScanAltText(): string {
-        return "Fule based scan";
+        return "Scan basé sur fichier";
     }
 }
 

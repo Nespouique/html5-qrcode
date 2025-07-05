@@ -21,14 +21,14 @@ class LibraryInfoDiv {
 
     constructor() {
         this.infoDiv = document.createElement("div");
-    }
-
-    public renderInto(parent: HTMLElement) {
+    }    public renderInto(parent: HTMLElement) {
         this.infoDiv.style.position = "absolute";
         this.infoDiv.style.top = "10px";
         this.infoDiv.style.right = "10px";
         this.infoDiv.style.zIndex = "2";
         this.infoDiv.style.display = "none";
+        this.infoDiv.style.visibility = "hidden"; // Masquer complètement
+        this.infoDiv.style.opacity = "0";
         this.infoDiv.style.padding = "5pt";
         this.infoDiv.style.border = "1px solid #171717";
         this.infoDiv.style.fontSize = "10pt";
@@ -83,18 +83,19 @@ class LibraryInfoIcon {
 
         this.infoIcon = document.createElement("img");
     }
-    
-    public renderInto(parent: HTMLElement) {
+      public renderInto(parent: HTMLElement) {
         this.infoIcon.alt = "Info icon";
         this.infoIcon.src = ASSET_INFO_ICON_16PX;
         this.infoIcon.style.position = "absolute";
         this.infoIcon.style.top = "4px";
         this.infoIcon.style.right = "4px";
-        this.infoIcon.style.opacity = "0.6";
+        this.infoIcon.style.opacity = "0";
         this.infoIcon.style.cursor = "pointer";
         this.infoIcon.style.zIndex = "2";
         this.infoIcon.style.width = "16px";
         this.infoIcon.style.height = "16px";
+        this.infoIcon.style.display = "none"; // Masquer complètement
+        this.infoIcon.style.visibility = "hidden";
 
         this.infoIcon.onmouseover = (_) => this.onHoverIn();
         this.infoIcon.onmouseout = (_) => this.onHoverOut();

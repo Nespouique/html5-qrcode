@@ -44,24 +44,26 @@ export class CameraZoomUi {
 
     private render(
         parentElement: HTMLElement,
-        renderOnCreate: boolean) {
-        // Style for the range slider.
+        renderOnCreate: boolean) {        // Style for the range slider.
         this.zoomElementContainer.style.display
             = renderOnCreate ? "block" : "none";
         this.zoomElementContainer.style.padding = "5px 10px";
         this.zoomElementContainer.style.textAlign = "center";
+        this.zoomElementContainer.style.background = "hsl(var(--background))";
+        this.zoomElementContainer.style.color = "hsl(var(--foreground))";
         parentElement.appendChild(this.zoomElementContainer);
 
         this.rangeInput.style.display = "inline-block";
         this.rangeInput.style.width = "50%";
         this.rangeInput.style.height = "5px";
-        this.rangeInput.style.background = "#d3d3d3";
+        this.rangeInput.style.background = "hsl(var(--border))";
         this.rangeInput.style.outline = "none";
         this.rangeInput.style.opacity = "0.7";
-
-        let zoomString = Html5QrcodeScannerStrings.zoom();
+        this.rangeInput.style.borderRadius = "4px";        let zoomString = Html5QrcodeScannerStrings.zoom();
         this.rangeText.innerText = `${this.rangeInput.value}x ${zoomString}`;
         this.rangeText.style.marginRight = "10px";
+        this.rangeText.style.color = "hsl(var(--foreground))";
+        this.rangeText.style.fontSize = "14px";
 
         // Bind values.
         let $this = this;

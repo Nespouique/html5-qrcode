@@ -177,8 +177,7 @@ export class FileSelectionUi {
     /** Reset the file selection value */
     public resetValue() {
         this.fileScanInput.value = "";
-        this.setInitialValueToButton();
-    }
+        this.setInitialValueToButton();    }
     //#endregion
 
     //#region private APIs
@@ -188,20 +187,22 @@ export class FileSelectionUi {
         fileBasedScanRegion.style.margin = "auto";
         fileBasedScanRegion.style.width = "80%";
         fileBasedScanRegion.style.maxWidth = "600px";
-        fileBasedScanRegion.style.border
-            = this.fileBasedScanRegionDefaultBorder();
+        fileBasedScanRegion.style.border = this.fileBasedScanRegionDefaultBorder();
         fileBasedScanRegion.style.padding = "10px";
         fileBasedScanRegion.style.marginBottom = "10px";
+        fileBasedScanRegion.style.borderRadius = "8px";
+        fileBasedScanRegion.style.background = "hsl(var(--background))";
+        fileBasedScanRegion.style.color = "hsl(var(--foreground))";
         return fileBasedScanRegion;
     }
 
     private fileBasedScanRegionDefaultBorder() {
-        return "6px dashed #ebebeb";
+        return "2px dashed hsl(var(--border))";
     }
 
     /** Border when a file is being dragged over the file scan region. */
     private fileBasedScanRegionActiveBorder() {
-        return "6px dashed rgb(153 151 151)";
+        return "2px dashed hsl(var(--primary))";
     }
 
     private createDragAndDropMessage(): HTMLDivElement {
