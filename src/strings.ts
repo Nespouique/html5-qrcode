@@ -147,7 +147,7 @@ export class Html5QrcodeScannerStrings {
     }
 
     public static fileSelectionNoImageSelected(): string {
-        return "Aucune image sélectionnée";
+        return "";
     }
 
     /** Prefix to be given to anonymous cameras. */

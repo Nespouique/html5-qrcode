@@ -107,3 +107,8 @@ Un fichier de test `examples/test-custom-styles.html` a été créé pour vérif
 - **Interface française** : Tous les textes sont traduits
 - **Interface épurée** : Les éléments indésirables sont masqués
 - **Maintenance simplifiée** : Plus besoin de maintenir des styles CSS séparés
+
+## Build et Publication
+
+- **Nettoyage** : `npm run clean-windows`
+- **Publication** : `npm run release-windows`

@@ -8,9 +8,31 @@
         :root {
             --background: 220 23% 97%;
             --foreground: 220 9% 15%;
+            --card: 0 0% 100%;
+            --card-foreground: 220 9% 15%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 220 9% 15%;
             --primary: 262 70% 55%;
             --primary-foreground: 210 40% 98%;
+            --secondary: 220 14% 93%;
+            --secondary-foreground: 220 9% 40%;
+            --muted: 220 14% 93%;
+            --muted-foreground: 220 9% 40%;
+            --accent: 220 14% 93%;
+            --accent-foreground: 220 9% 40%;
+            --success: 142 40% 40%;
+            --success-foreground: 210 40% 98%;
+            --destructive: 0 70% 55%;
+            --destructive-foreground: 210 40% 98%;
             --border: 220 13% 88%;
+            --input: 220 13% 88%;
+            --ring: 262 70% 55%;
+            --radius: 0.5rem;
+            --chart-1: 12 76% 61%;
+            --chart-2: 173 58% 39%;
+            --chart-3: 197 37% 24%;
+            --chart-4: 43 74% 66%;
+            --chart-5: 27 87% 67%;
         }
 
         body {
@@ -35,7 +57,7 @@
             text-align: center;
         }
 
-        #reader {
+        #barcode-scanner {
             width: 100%;
             margin: 20px 0;
         }
@@ -52,15 +74,19 @@
 <body>
     <div class="container">
         <h1>Scanner QR Code Personnalisé</h1>
-        <div id="reader"></div>
+        
+        <div id="barcode-scanner"></div>
         <div id="result" class="result" style="display: none;">
             <h3>Résultat :</h3>
             <p id="qrcode-result"></p>
         </div>
     </div>
 
-    <script src="../dist/html5-qrcode.min.js"></script>
+    <script src="../dist/html5-qrcode.min.js?v=20250706"></script>
     <script>
+        // Injecter les styles CSS personnalisés pour le scanner QR
+        
+
         function onScanSuccess(decodedText, decodedResult) {
             // Afficher le résultat
             document.getElementById('qrcode-result').textContent = decodedText;
@@ -73,6 +99,9 @@
             // console.warn(`Code scan error = ${error}`);
         }
 
+        // Injecter les styles avant d'initialiser le scanner
+        //injectCustomStyles();
+
         // Configuration du scanner
         let config = {
             fps: 10,
@@ -81,11 +110,19 @@
 
         // Initialiser le scanner
         let html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader",
+            "barcode-scanner",
             config,
             /* verbose= */ false
         );
-        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        
+        // Attendre un peu puis rendre le scanner et réappliquer les styles
+        setTimeout(() => {
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+            // Réappliquer les styles après le rendu
+            setTimeout(() => {
+                injectCustomStyles();
+            }, 100);
+        }, 100);
     </script>
 </body>
 </html>

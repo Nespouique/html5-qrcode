@@ -477,8 +477,9 @@ export class Html5QrcodeScanner {
         const scanRegionId = this.getScanRegionId();
         qrCodeScanRegion.id = scanRegionId;
         qrCodeScanRegion.style.width = "100%";
-        qrCodeScanRegion.style.minHeight = "100px";
-        qrCodeScanRegion.style.textAlign = "center";
+        qrCodeScanRegion.style.display = "flex";
+        qrCodeScanRegion.style.flexDirection = "column";
+        qrCodeScanRegion.style.alignItems = "center";
         qrCodeScanRegion.style.color = "hsl(var(--foreground))";
         parent.appendChild(qrCodeScanRegion);
         if (ScanTypeSelector.isCameraScanType(this.currentScanType)) {
@@ -1060,6 +1061,11 @@ export class Html5QrcodeScanner {
         this.cameraScanImage.style.opacity = "0.8";
         this.cameraScanImage.src = ASSET_CAMERA_SCAN;
         this.cameraScanImage.alt = Html5QrcodeScannerStrings.cameraScanAltText();
+        if (document.documentElement.classList.contains('dark')) {
+                    this.cameraScanImage.style.filter = 'invert(1)';
+                } else {
+                    this.cameraScanImage.style.filter = '';
+                }
     }
 
     private insertFileScanImageToScanRegion() {
@@ -1078,10 +1084,6 @@ export class Html5QrcodeScanner {
             qrCodeScanRegion.innerHTML = "<br>";
             qrCodeScanRegion.appendChild($this.fileScanImage!);
         }
-        this.fileScanImage.width = 64;
-        this.fileScanImage.style.opacity = "0.8";
-        this.fileScanImage.src = ASSET_FILE_SCAN;
-        this.fileScanImage.alt = Html5QrcodeScannerStrings.fileScanAltText();
     }
 
     private clearScanRegion() {
@@ -1093,80 +1095,62 @@ export class Html5QrcodeScanner {
     private injectCustomScannerStyles() {
         // Injecter les styles personnalisés pour la librairie html5-qrcode
         const customStyles = `
-            <style id="html5-qrcode-custom-styles">
-                /* Styles pour les boutons */
-                .html5-qrcode-element button {
-                    background: hsl(var(--primary)) !important;
-                    color: hsl(var(--primary-foreground)) !important;
-                    border: 1px solid hsl(var(--border)) !important;
-                    border-radius: 6px !important;
-                    padding: 8px 16px !important;
-                    font-size: 14px !important;
-                    font-weight: 500 !important;
-                    cursor: pointer !important;
-                    transition: all 0.2s !important;
-                    margin: 4px !important;
-                }
+            <style>
+                    /* Styles pour les boutons */
+                    #barcode-scanner button {
+                        background: hsl(var(--primary)) !important;
+                        color: hsl(var(--primary-foreground)) !important;
+                        border: 1px solid hsl(var(--border)) !important;
+                        border-radius: 6px !important;
+                        padding: 8px 16px !important;
+                        font-size: 14px !important;
+                        font-weight: 500 !important;
+                        cursor: pointer !important;
+                        transition: all 0.2s !important;
+                        margin: 4px !important;
+                    }
 
-                .html5-qrcode-element button:hover {
-                    background: hsl(var(--primary)/0.9) !important;
-                }
+                    #barcode-scanner button:hover {
+                        background: hsl(var(--primary)/0.9) !important;
+                    }
 
-                .html5-qrcode-element button:disabled {
-                    background: hsl(var(--primary)/0.6) !important;
-                    opacity: 0.6 !important;
-                    cursor: not-allowed !important;
-                }
+                    /* Style pour le select de caméra */
+                    #barcode-scanner select {
+                        background: hsl(var(--background)) !important;
+                        border: 1px solid hsl(var(--border)) !important;
+                        border-radius: 6px !important;
+                        padding: 8px 12px !important;
+                        font-size: 14px !important;
+                        color: hsl(var(--foreground)) !important;
+                        margin: 8px !important;
+                        cursor: pointer !important;
+                    }
 
-                /* Style pour le select de caméra */
-                .html5-qrcode-element select {
-                    background: hsl(var(--background)) !important;
-                    border: 1px solid hsl(var(--border)) !important;
-                    border-radius: 6px !important;
-                    padding: 8px 12px !important;
-                    font-size: 14px !important;
-                    color: hsl(var(--foreground)) !important;
-                    margin: 8px !important;
-                    cursor: pointer !important;
-                }
+                    /* Styles pour les labels et texte */
+                    #barcode-scanner span {
+                        color: hsl(var(--foreground)) !important;
+                        font-size: 14px !important;
+                        margin: 4px 0 !important;
+                    }
 
-                /* Styles pour les labels et texte */
-                .html5-qrcode-element span {
-                    color: hsl(var(--foreground)) !important;
-                    font-size: 14px !important;
-                    margin: 4px 0 !important;
-                }
+                    /* Container principal */
+                    #barcode-scanner > div {
+                        text-align: center !important;
+                        margin: 8px 0 !important;
+                        visibility: visible !important;
+                    }
 
-                /* Container principal */
-                .html5-qrcode-element > div {
-                    text-align: center !important;
-                    margin: 8px 0 !important;
-                    display: block !important;
-                    visibility: visible !important;
-                }
+                    /* Zone de scan vidéo */
+                    #barcode-scanner video {
+                        border-radius: 8px !important;
+                        max-width: 100% !important;
+                    }
 
-                /* Zone de scan vidéo */
-                .html5-qrcode-element video {
-                    border-radius: 8px !important;
-                    max-width: 100% !important;
-                }
-
-                /* Canvas overlay */
-                .html5-qrcode-element canvas {
-                    border-radius: 8px !important;
-                }
-
-                /* Masquer les éléments indésirables */
-                .html5-qrcode-element div[style*="position: absolute"][style*="top"][style*="right"] {
-                    display: none !important;
-                    visibility: hidden !important;
-                    opacity: 0 !important;
-                }
-
-                .html5-qrcode-element img[style*="position: absolute"] {
-                    display: none !important;
-                }
-            </style>
+                    /* Canvas overlay */
+                    #barcode-scanner canvas {
+                        border-radius: 8px !important;
+                    }
+                </style>
         `;
 
         // Injecter les styles dans le head si pas déjà fait

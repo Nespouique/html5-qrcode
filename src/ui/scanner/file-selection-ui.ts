@@ -209,7 +209,8 @@ export class FileSelectionUi {
         let dragAndDropMessage = document.createElement("div");
         dragAndDropMessage.innerText
             = Html5QrcodeScannerStrings.dragAndDropMessage();
-        dragAndDropMessage.style.fontWeight = "400";
+        dragAndDropMessage.style.fontWeight = "100";
+        dragAndDropMessage.style.fontSize = "14px";
         return dragAndDropMessage;
     }
 
@@ -233,8 +234,6 @@ export class FileSelectionUi {
 
     private setInitialValueToButton() {
         let initialText = Html5QrcodeScannerStrings.fileSelectionChooseImage()
-            + " - "
-            + Html5QrcodeScannerStrings.fileSelectionNoImageSelected();
         this.fileSelectionButton.innerText = initialText;
     }
 
